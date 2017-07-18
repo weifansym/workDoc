@@ -180,4 +180,36 @@
     const copy = { ...original, c: 3 }; // copy => { a: 1, b: 2, c: 3 }
 
     const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
-    
+    
+### 数组
+1、使用字面值创建数组
+
+    // bad
+    const items = new Array();
+
+    // good
+    const items = [];
+2、向数组添加元素时使用 Arrary#push 替代直接赋值。
+
+    const someStack = [];
+    // bad
+    someStack[someStack.length] = 'abracadabra';
+    // good
+    someStack.push('abracadabra');
+3、使用拓展运算符 ... 复制数组。
+
+    // bad
+    const len = items.length;
+    const itemsCopy = [];
+    let i;
+
+    for (i = 0; i < len; i++) {
+      itemsCopy[i] = items[i];
+    }
+
+    // good
+    const itemsCopy = [...items];
+   4、使用 Array#from 把一个类数组对象转换成数组。
+   
+       const foo = document.querySelectorAll('.foo');
+       const nodes = Array.from(foo);
