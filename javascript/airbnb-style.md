@@ -17,7 +17,7 @@
 
     bar[0] = 9;
     console.log(foo[0], bar[0]); // => 9, 9
-### References(变量)
+### References(引用)
 使用cont声明所有的变量，避免是有var，为什么要这么做呢，这样可以保证不能对变量重新分配以及减少难以理解的代码，以及bug
 
     // bad
@@ -212,4 +212,71 @@
    4、使用 Array#from 把一个类数组对象转换成数组。
    
        const foo = document.querySelectorAll('.foo');
-       const nodes = Array.from(foo);
+       const nodes = Array.from(foo);
+### Destructuring
+### Strings（字符串）
+1、字符串使用单引号 ''
+
+    // bad
+    const name = "Capt. Janeway";
+
+    // good
+    const name = 'Capt. Janeway';
+2、字符串单行超过100个字节，不应使用字符串连接跨多行写入。因为使用连字符的字符串很难处理，使代码不易搜索。
+
+    // bad
+    const errorMessage = 'This is a super long error that was thrown because \
+    of Batman. When you stop to think about how Batman had anything to do \
+    with this, you would get nowhere \
+    fast.';
+
+    // bad
+    const errorMessage = 'This is a super long error that was thrown because ' +
+      'of Batman. When you stop to think about how Batman had anything to do ' +
+      'with this, you would get nowhere fast.';
+
+    // good
+    const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had    anything to do with this, you would get nowhere fast.';
+
+3、程序化生成字符串时，使用模板字符串代替字符串连接。因为：模板字符串更为简洁，更具可读性。
+
+    // bad
+    function sayHi(name) {
+      return 'How are you, ' + name + '?'; 
+    }
+
+    // bad
+    function sayHi(name) {
+      return ['How are you, ', name, '?'].join();
+    }
+
+    // good
+    function sayHi(name) {
+      return `How are you, ${name}?`;
+    }
+4、字符串不要使用**eval()**方法，这个方法打开了很多漏洞。
+
+### Functions（函数）
+### Arrow Functions（箭头函数）
+### Classes & Constructors（类和构造器）
+### Modules（模块）
+### Iterators and Generators
+### Properties
+### Variables
+### Hoisting
+### Comparison Operators & Equality
+### Blocks
+### Control Statements
+### Comments
+### Whitespace
+### Commas
+### Semicolons
+### Type Casting & Coercion
+### Naming Conventions
+### Accessors
+### Events
+### jQuery
+### ECMAScript 5 Compatibility
+### ECMAScript 6+ (ES 2015+) Styles
+### 其他
+其他关于javascript的好多内容请参见，[javascript](https://github.com/airbnb/javascript#table-of-contents)，以及中文版的页面：https://github.com/yuche/javascript
