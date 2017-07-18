@@ -164,7 +164,7 @@
      import has from 'has';
      // ...
      console.log(has.call(object, key)); 
-8、再使用Object.assign对对象进行前拷贝的时候，更喜欢使用对象剩余操作符（rest operator）获得一个具有某些属性的新对象
+8、再使用Object.assign对对象进行前拷贝的时候，更喜欢使用对象拓展操作符（rest operator）获得一个具有某些属性的新对象
  
     // very bad
     const original = { a: 1, b: 2 };
