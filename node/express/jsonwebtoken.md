@@ -100,3 +100,7 @@ jwt.sign({
 }, 'secret', { expiresIn: '1h' });
 ```
 
+### jwt.verify(token, secretOrPublicKey, [options, callback])
+
+(异步)：如果提供回调，这个方法就是异步方法。如果签名和可选的值：expiration, audience,和issuer如果是有效的，回调被传递一个解密的payload。
+
