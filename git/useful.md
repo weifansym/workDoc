@@ -25,3 +25,7 @@ git pull
 https://gaohaoyang.github.io/2016/07/07/git-clone-not-master-branch/
 
 http://www.cnblogs.com/jeacy/p/6439933.html
+
+## Git查看、删除、重命名远程分支和tag
+https://blog.zengrong.net/post/1746.html
+
