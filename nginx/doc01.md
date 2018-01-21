@@ -35,14 +35,6 @@ location /images/ {
     root /data/w3;
 }
 ```
-### location
-
-```
-Syntax:	location [ = | ~ | ~* | ^~ ] uri { ... }
-location @name { ... }
-Default:	—
-Context:	server, location
-```
 
 ### root
 ```
@@ -61,3 +53,28 @@ location /i/ {
 
 **path**的值可以包含变量，除了：$document_root 和 $realpath_root之外。
 一个文件的路径被创建通过仅仅在root指令中添加url，如果url必须修改则要使用alias指令
+
+
+### alias与root的区别
+```
+root    实际访问文件路径会拼接URL中的路径
+alias   实际访问文件路径不会拼接URL中的路径
+```
+示例如下：
+```
+location ^~ /sta/ {  
+   alias /usr/local/nginx/html/static/;  
+}
+```
+请求：http://test.com/sta/sta1.html
+实际访问：/usr/local/nginx/html/static/sta1.html 文件
+
+```
+location ^~ /tea/ {  
+   root /usr/local/nginx/html/;  
+}
+```
+请求：http://test.com/tea/tea1.html
+实际访问：/usr/local/nginx/html/tea/tea1.html 文件
+
+
