@@ -36,6 +36,7 @@ NOTE: 根据RFC3986定义，URL是大小写敏感的。所以为了避免歧义�
 有了资源的 URL 设计，所有针对资源的操作都是使用 HTTP 方法指定的。比较常用的方法有：
 
 Verb	 描述
+
 HEAD	只获取某个资源的头部信息。比如只想了解某个文件的大小，某个资源的修改日期等
 GET	获取资源
 POST	创建资源
@@ -71,12 +72,12 @@ NOTE：更新和创建操作应该返回最新的资源，来通知用户资源�
 ### 6. Query 让查询更自由
 比如查询某个 repo 下面 issues 的时候，可以通过以下参数来控制返回哪些结果：
 
-state：issue 的状态，可以是 open，closed，all
-since：在指定时间点之后更新过的才会返回
-assignee：被 assign 给某个 user 的 issues
-sort：选择排序的值，可以是 created、updated、comments
-direction：排序的方向，升序（asc）还是降序（desc）
-……
+* state：issue 的状态，可以是 open，closed，all
+* since：在指定时间点之后更新过的才会返回
+* assignee：被 assign 给某个 user 的 issues
+* sort：选择排序的值，可以是 created、updated、comments
+* direction：排序的方向，升序（asc）还是降序（desc）
+* ……
 ### 7. 分页 Pagination
 
 当返回某个资源的列表时，如果要返回的数目特别多，比如 github 的 /users，就需要使用分页分批次按照需要来返回特定数量的结果。
@@ -93,7 +94,9 @@ HTTP 应答中，需要带一个很重要的字段：status code。它说明了�
 * 3XX：重定向，请求的资源位置发生变化
 * 4XX：客户端发送的请求有错误
 * 5XX：服务器端错误
+
 在 HTTP API 设计中，经常用到的状态码以及它们的意义如下表：
+
 状态码	 Label	 解释
 200	OK	请求成功接收并处理，一般响应中都会有 body
 201	Created	请求已完成，并导致了一个或者多个资源被创建，最常用在 POST 创建资源的时候
@@ -163,22 +166,3 @@ API 最终是给人使用的，不管是公司内部，还是公开的 API 都�
 [Restful API 首次被提出的论文：Architectural Styles and the Design of Network-based Software Architectures](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm)
 
 转自：http://cizixs.com/2016/12/12/restful-api-design-guide
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
