@@ -31,3 +31,11 @@ https://blog.zengrong.net/post/1746.html
 
 ## gitflow
 https://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html
+
+### git 退出 git log
+经常输入 git log 后， 即使按ctrl+c (z) 都无法完全退出
+
+后来google了一下，原来要输入q 
+
+### git 回退回滚
+http://yijiebuyi.com/blog/8f985d539566d0bf3b804df6be4e0c90.html
