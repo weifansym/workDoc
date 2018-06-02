@@ -21,5 +21,7 @@
 
 参考知乎上面各位大神的回答：https://www.zhihu.com/question/33515481
 
+https://unmi.cc/different-between-concurrent-and-parallel/
+
 ## 并发相关的文章参见：
 http://blog.thankbabe.com/2017/02/27/high-concurrency-scheme-xp/
