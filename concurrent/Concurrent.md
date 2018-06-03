@@ -25,3 +25,4 @@ https://unmi.cc/different-between-concurrent-and-parallel/
 
 ## 并发相关的文章参见：
 http://blog.thankbabe.com/2017/02/27/high-concurrency-scheme-xp/
+http://ifeve.com/race-conditions-and-critical-sections/
