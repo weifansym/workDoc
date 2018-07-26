@@ -10,3 +10,10 @@
 ### 回答
 使用队列，下单的时候把订单号丢到队列里面去，设置5分钟之后执行，5分钟之后再去查询订单的状态，然后做相应的操作。找一个支持延迟执行的队列。
 
+### 延时队列
+https://liuzhengyang.github.io/2017/01/03/delay-queue/
+https://www.cnblogs.com/hzmark/p/mq-delay-msg.html
+https://www.jianshu.com/p/7beebbc61229
+https://tech.youzan.com/queuing_delay/
+http://www.rowkey.me/blog/2017/12/28/delay-trigger/
+
