@@ -5,3 +5,6 @@
 ## nock包
 * https://github.com/nock/nock
 * https://codeburst.io/testing-mocking-http-requests-with-nock-480e3f164851
+## 大搜车的easy-mock
+* [easy-mock的github地址](https://github.com/easy-mock/easy-mock)
+* [easy-mock官网](https://easy-mock.com/)
