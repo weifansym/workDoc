@@ -41,7 +41,10 @@ Redis中的ZSet是一个有序的Set，内部使用HashMap和跳表(SkipList)来
 #### 05: 成熟的消息队列提供延迟队列功能
 例如：RabbitMQ的TTL和DXL就能实现延迟队列。
 
-### 参考文章
+#### 总结
+延迟任务，面临的是任务的管理，比如，任务的增删改查等。以及面对的性能问题，比如轮询数据库，时间轮，Redis ZSet都需要轮询操作。
+数据的安全性问题，例如时间轮以及语言本身提供的延迟队列无法做到数据落地。
+#### 参考文章
 * https://www.cnblogs.com/hzmark/p/mq-delay-msg.html
 * https://tech.youzan.com/queuing_delay/
 * http://www.cnblogs.com/haoxinyue/p/6663720.html
