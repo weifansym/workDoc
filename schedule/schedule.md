@@ -24,20 +24,25 @@
 
 和上面的方式一样，任务都存储在内存中，程序重启，将导致任务丢失。此时在任务开始的时候先固化，然后在处理，处理完之后再删除固化数据。如果服务重启要重新启动所有根据固化的数据重新构建任务。
 #### 04: Redis ZSet
+Redis中的ZSet是一个有序的Set，内部使用HashMap和跳表(SkipList)来保证数据的存储和有序，HashMap里放的是成员到score的映射，而跳跃表里存放的是所有的成员，排序依据是HashMap里存的score,使用跳跃表的结构可以获得比较高的查找效率，并且在实现上比较简单。
+
+在用作延迟任务的时候，可以在添加数据的时候，使用zadd把score写成未来某个时刻的unix时间戳。消费者使用zrangeWithScores获取优先级最高的（最早开始的的）任务。注意，zrangeWithScores并不是取出来，只是看一下并不删除，类似于Queue的peek方法。程序对最早的这个消息进行验证，是否到达要运行的时间，如果是则执行，然后删除zset中的数据。如果不是，则继续等待。
+
+由于zrangeWithScores 和 zrem是先后使用，所以有可能有并发问题，即两个线程或者两个进程都会拿到一样的一样的数据，然后重复执行，最后又都会删除。如果是单机多线程执行，或者分布式环境下，可以使用Redis事务，也可以使用由Redis实现的分布式锁，或者使用下例中Redis Script。你可以在Redis官方的Transaction章节找到事务的相关内容。
+
+使用Redis的好处主要是：
+
+1. 解耦：把任务、任务发起者、任务执行者的三者分开，逻辑更加清晰，程序强壮性提升，有利于任务发起者和执行者各自迭代，适合多人协作。
+
+2. 异常恢复：由于使用Redis作为消息通道，消息都存储在Redis中。如果发送程序或者任务处理程序挂了，重启之后，还有重新处理数据的可能性。
+
+3. 分布式：如果数据量较大，程序执行时间比较长，我们可以针对任务发起者和任务执行者进行分布式部署。特别注意任务的执行者，也就是Redis的接收方需要考虑分布式锁的问题。
 
 #### 05: 成熟的消息队列提供延迟队列功能
 例如：RabbitMQ的TTL和DXL就能实现延迟队列。
 
-### 延时队列
-https://liuzhengyang.github.io/2017/01/03/delay-queue/
-
-https://www.cnblogs.com/hzmark/p/mq-delay-msg.html
-
-https://www.jianshu.com/p/7beebbc61229
-
-https://tech.youzan.com/queuing_delay/
-
-http://www.rowkey.me/blog/2017/12/28/delay-trigger/
-
-http://www.cnblogs.com/haoxinyue/p/6663720.html
+### 参考文章
+* https://www.cnblogs.com/hzmark/p/mq-delay-msg.html
+* https://tech.youzan.com/queuing_delay/
+* http://www.cnblogs.com/haoxinyue/p/6663720.html
 
