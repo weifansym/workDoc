@@ -234,4 +234,6 @@ stmt.Exec()函数用来执行stmt准备好的SQL语句
 
 我们可以看到我们传入的参数都是=?对应的数据，这样做的方式可以一定程度上防止SQL注入。
 
+具体需要参见go的相关数据接口包：[database/sql](https://golang.org/pkg/database/sql/), 以及教程[Go database/sql tutorial](http://go-database-sql.org/index.html)
+
 参考：https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/05.2.md
