@@ -53,8 +53,30 @@ rows.Next循环迭代的时候，因为触发了io.EOF而退出循环。为了�
 	checkErr(err)
 ```
 #### 单条结果集
+QueryRow方法用于查询单条记录的结果集。QueryRow方法的使用很简单，它要么返回sql.Row类型，要么返回一个error，如果是发送了错误，则会延迟到Scan调用结束后返回，如果没有错误，则Scan正常执行。只有当查询的结果为空的时候，会触发一个sql.ErrNoRows错误。你可以选择先检查错误再调用Scan方法，或者先调用Scan再检查错误。
+
+在之前的代码中我们都用到了Scan方法，下面说说关于这个方法
+
+结果集方法Scan可以把数据库取出的字段值赋值给指定的数据结构。它的参数是一个空接口的切片，这就意味着可以传入任何值。通常把需要赋值的目标变量的指针当成参数传入，它能将数据库取出的值赋值到指针值对象上。
+代码例子如：
+```
+	var username string
+	row := db.QueryRow("SELECT username FROM userinfo WHERE uid=?", 5)
+	err = row.Scan(&username)
+	if err != nil{
+		fmt.Println("scan err:",err)
+		return
+	}
+	fmt.Println(username)
+```
+Scan还会帮我们自动推断除数据字段匹配目标变量。比如有个数据库字段的类型是VARCHAR，而他的值是一个数字串，例如"1"。如果我们定义目标变量是string，则scan赋值后目标变量是数字string。如果声明的目标变量是一个数字类型，那么scan会自动调用strconv.ParseInt()或者strconv.ParseInt()方法将字段转换成和声明的目标变量一致的类型。当然如果有些字段无法转换成功，则会返回错误。因此在调用scan后都需要检查错误。
 #### 空值的处理
 #### 查询字段的自动匹配
 ### 插入操作
 #### 单个插入
 #### 批量插入
+
+参考：
+* https://www.cnblogs.com/zhaof/p/8511550.html
+* http://go-database-sql.org/retrieving.html
+* https://stackoverflow.com/questions/21108084/golang-mysql-insert-multiple-data-at-once
