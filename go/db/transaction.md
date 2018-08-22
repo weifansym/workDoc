@@ -28,12 +28,12 @@ tx.Commit()
 ### tx对象与db对象
 对于下面的代码：
 ```
-rows, _ := db.Query("SELECT id FROM user") 
+rows, _ := db.Query("SELECT uid FROM userinfo") 
 for rows.Next() {
-    var mid, did int
-    rows.Scan(&mid)
-    db.QueryRow("SELECT id FROM detail_user WHERE master = ?", mid).Scan(&did)
-
+    var uid int
+    var name string
+    rows.Scan(&uid)
+    db.QueryRow("SELECT username FROM userinfo WHERE uid = ?", uid).Scan(&name)
 }
 ```
 调用了Query方法之后，在Next方法中取结果的时候，rows是维护了一个连接，再次调用QueryRow的时候，db会再从连接池取出一个新的连接。
@@ -42,15 +42,22 @@ rows和db的连接两者可以并存，并且相互不影响。
 对于sql.Tx对象，因为事务过程只有一个连接，事务内的操作都是顺序执行的，只有当前的数据库操作完成之后才能进行下一个数据库操作，
 上面的逻辑如果在事务处理中会失效，如下代码：
 ```
-rows, _ := tx.Query("SELECT id FROM user")
+rows, _ := tx.Query("SELECT uid FROM userinfo")
 for rows.Next() {
-   var mid, did int
-   rows.Scan(&mid)
-   tx.QueryRow("SELECT id FROM detail_user WHERE master = ?", mid).Scan(&did)
+   var uid int
+   var name string
+   rows.Scan(&uid)
+   tx.QueryRow("SELECT username FROM userinfo WHERE uid = ?", uid).Scan(&name)
 }
 ```
 tx执行了Query方法后，连接转移到rows上，在Next方法中，tx.QueryRow将尝试获取该连接进行数据库操作。因为还没有调用rows.Close，
 因此底层的连接属于busy状态，tx是无法再进行查询的。
+
+报错信息如下：
+```
+[mysql] 2018/08/22 15:13:36 packets.go:427: busy buffer
+2018/08/22 15:13:36 driver: bad connection
+```
 ## 完整实例如下：
 ```
 package main
