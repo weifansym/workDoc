@@ -9,7 +9,9 @@ db.Begin会创建tx对象，后者的Exec和Query执行事务的数据库操作�
 一旦创建了这个tx对象，则这个事务中所有的处理都依赖于这个tx对象，这个对象会从连接池中取出一个空闲的连接，接下来的sql执行都基于这个连接，
 直到调用commit或Roolback之后，才会把这个连接释放到连接池。
 
-具体golang相关的数据库操作请看：https://golang.org/pkg/database/sql/
+具体golang相关的数据库操作请看：
+* https://golang.org/pkg/database/sql/
+* http://go-database-sql.org/index.html
 
 在事务处理的时候，不能使用db的查询方法，当然你如果使用也能执行语句成功，但是这和你事务里执行的操作将不是一个事务，将不会接受commit和rollback的改变，
 如下面操作时：
