@@ -1,0 +1,13 @@
+## 深入go系列
+* 深入go语言-1：https://colobu.com/2016/06/15/dive-into-go-1/
+* 深入go语言-2：https://colobu.com/2016/06/16/dive-into-go-2/
+* 深入Go语言-3：https://colobu.com/2016/06/16/dive-into-go-3/
+* 深入Go语言-4：https://colobu.com/2016/06/20/dive-into-go-4/
+* 深入Go语言-5：https://colobu.com/2016/06/20/dive-into-go-5/
+* 深入Go语言-6：https://colobu.com/2016/06/21/dive-into-go-6/
+* 深入Go语言-7：https://colobu.com/2016/06/22/dive-into-go-7/
+* 深入Go语言-8：https://colobu.com/2016/06/27/dive-into-go-8/
+* 深入Go语言-9：https://colobu.com/2016/06/29/dive-into-go-9/
+* 深入Go语言-11：https://colobu.com/2016/07/04/dive-into-go-11/
+* 深入Go语言-12：https://colobu.com/2016/07/06/dive-into-go-12/
+* 深入Go语言-13：https://colobu.com/2016/07/09/dive-into-go-13/
