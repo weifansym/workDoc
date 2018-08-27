@@ -13,6 +13,7 @@ for key, value := range oldMap {
 | array/slice	 | index | s[index]	  |  具体汇率|
 | map	 | key | m[key]	  |   |
 | channel	 | element | 	  |  |
+
 可忽略不想要的返回值，或 "_" 这个特殊变量。
 ```
 package main
