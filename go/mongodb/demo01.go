@@ -149,15 +149,3 @@ func main() {
 
 	fmt.Println("news data :", result)*/
 }
-
-func GetMgo() *mgo.Session {
-	return session
-}
-
-func GetDataBase() *mgo.Database {
-	return database
-}
-
-func GetErrNotFound() error {
-	return mgo.ErrNotFound
-}
