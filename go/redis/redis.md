@@ -180,6 +180,10 @@ func main() {
 }
 ```
 其他操作都类似。
+### Pipelining
+* [redigo api](https://godoc.org/github.com/gomodule/redigo/redis)
+### Publish and Subscribe 
+* [redigo api](https://godoc.org/github.com/gomodule/redigo/redis)
 ### redis连接池
 首先来看一下连接池结构体
 ```
@@ -314,6 +318,9 @@ func main() {
 	pool.Close() //关闭连接池
 }
 ```
+### redis的主从与集群
+redis的主从，集群需要借助其他包实现：
+[redigo github地址](https://github.com/gomodule/redigo)中包含了相关的包。
 
 ### 注意事项：
 * 在程序中链接被使用过后需要手动进行关闭链接
