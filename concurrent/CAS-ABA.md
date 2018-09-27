@@ -32,7 +32,10 @@ ABA问题是无锁结构实现中常见的一种问题，可基本表述为：
 对于P1来说，数值A未发生过改变，但实际上A已经被变化过了，继续使用可能会出现问题。在CAS操作中，由于比较的多是指针，这个问题将会变得更加严重。
 
 具体查看: [wikipedia关于CAS](https://zh.wikipedia.org/wiki/%E6%AF%94%E8%BE%83%E5%B9%B6%E4%BA%A4%E6%8D%A2#cite_ref-2)
+### 解决ABA问题
+通过给数据添加版本号或者计数器都可解决ABA问题。
 ### 参看
 * https://coolshell.cn/articles/8239.html
 * https://zhuanlan.zhihu.com/p/28049542
 * https://www.w3cschool.cn/architectroad/architectroad-cas-optimization.html
+* https://monkeysayhi.github.io/2018/01/02/CAS%E4%B8%AD%E7%9A%84ABA%E9%97%AE%E9%A2%98/
