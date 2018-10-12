@@ -1,0 +1,12 @@
+## 关于rabbitmq相关文档：
+* 官网：https://www.rabbitmq.com/
+* web控制台：http://www.rabbitmq.com/management.html
+* 控制台相关命令：http://www.rabbitmq.com/management-cli.html
+### 教程
+* https://blog.csdn.net/column/details/rabbitmq.html
+* http://www.cnblogs.com/tianciliangen/category/645984.html
+* https://www.cnblogs.com/wangiqngpei557/category/347643.html
+* https://mp.weixin.qq.com/s/OABseRR0BnbK9svIPyLKXw
+* http://tanchao90.com/rabbitmq/
+* https://blog.zenfery.cc/archives/82.html
+* https://www.kancloud.cn/yunxifd/rabbitmq/96997
