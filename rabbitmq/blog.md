@@ -2,6 +2,7 @@
 * 官网：https://www.rabbitmq.com/
 * web控制台：http://www.rabbitmq.com/management.html
 * 控制台相关命令：http://www.rabbitmq.com/management-cli.html
+* https://github.com/squaremo/amqp.node/tree/master/examples/tutorials
 ### 教程
 * https://blog.csdn.net/column/details/rabbitmq.html
 * http://www.cnblogs.com/tianciliangen/category/645984.html
