@@ -10,4 +10,4 @@
 * https://mp.weixin.qq.com/s/OABseRR0BnbK9svIPyLKXw
 * http://tanchao90.com/rabbitmq/
 * https://blog.zenfery.cc/archives/82.html
-* https://www.kancloud.cn/yunxifd/rabbitmq/96997
+* https://blog.csdn.net/column/details/15500.html
