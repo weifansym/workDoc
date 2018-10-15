@@ -5,3 +5,4 @@
 * https://www.npmjs.com/package/bull#feature-comparison
 * https://github.com/agenda/agenda
 * https://zhuanlan.zhihu.com/p/26493355
+* https://tech.youzan.com/queuing_delay/
