@@ -6,3 +6,6 @@
 * https://github.com/agenda/agenda
 * https://zhuanlan.zhihu.com/p/26493355
 * https://tech.youzan.com/queuing_delay/
+
+## 延迟队列
+* bull: https://github.com/OptimalBits/bull/blob/master/REFERENCE.md#queueadd
