@@ -1,6 +1,7 @@
 ## socketIo相关内容
 ### 概念
 * github源码地址：[socket.io](https://github.com/socketio/socket.io)
+* api: [api](https://socket.io/docs/server-api/)
 
 关于socket.io我们从源码对应的[官网文档](https://socket.io/docs/)中可以清晰的了解到他的基本使用,下面我们来对官网文档做一个详细的解读：
 
