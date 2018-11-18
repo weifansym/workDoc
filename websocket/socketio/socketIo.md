@@ -27,6 +27,7 @@ client端：
 </script>
 ```
 这里我们主要讲下面几个部分：
+### socket请求的header，querystring
 ### namespace（命名空间）与room(channel)房间
 socket.io有连个非常重要的概念namespace与room，他们两个存在的原因就是**分组**，把不同的信息转到不同的分组中。
 #### namespace
