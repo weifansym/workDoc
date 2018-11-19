@@ -104,6 +104,18 @@ function cacheMiddleWare(socket, next){
 ### Sending volatile messages
 ### acknowledgements
 ### Broadcasting messages
+```
+socket.broadcast.to('room').emit('event_name',data)//emit to 'room' except this socket／＊发送消息给room所有的socket client端，除了发送者自己＊／
+
+socket.broadcast.emit('event_name',data)//emit to all sockets except this one／＊发送信息给所有连接到server的client端＊／
+
+io.sockets.in('room').emit('event_name',data)//emit to all clients in a particular room／＊发送消息给room所有的socket client端＊／
+
+io.sockets.emit('event_name',data) //emit an event to all clients／＊发送信息给所有连接到server的client端＊／
+
+io.of('namespace').in('room').emit();// emit an event to all clients in a namespace of a particular room
+
+```
 
 
 参考：
