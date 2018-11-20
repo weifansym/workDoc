@@ -4,4 +4,5 @@
 ## 多进程通信
 ## 获取某个房间中的链接数，以及链接者
 * https://stackoverflow.com/questions/9352549/getting-how-many-people-are-in-a-chat-room-in-socket-io/24425207#24425207
+* https://stackoverrun.com/cn/q/9080231
 * https://stackoverflow.com/questions/30625556/socket-io-how-to-count-clients-in-a-room-with-socket-io-redis-adapter
