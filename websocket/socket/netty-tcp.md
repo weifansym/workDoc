@@ -18,20 +18,20 @@
 服务端一共读到两个数据包，第一个包包含客户端发出的第一条消息的完整信息，第二个包包含客户端发出的第二条消息，那这种情况比较好处理，服务器只需要简单的从
 网络缓冲区去读就好了，第一次读到第一条消息的完整信息，消费完再从网络缓冲区将第二条完整消息读出来消费。
 
-![http://static.oschina.net/uploads/space/2016/0227/215920_wsu6_1759553.png](http://static.oschina.net/uploads/space/2016/0227/215920_wsu6_1759553.png)
+![https://github.com/weifansym/workDoc/blob/master/images/20181128001.png](https://github.com/weifansym/workDoc/blob/master/images/20181128001.png)
                                                 没有发生粘包、拆包示意图
 #### 第二种情况：
 服务端一共就读到一个数据包，这个数据包包含客户端发出的两条消息的完整信息，这个时候基于之前逻辑实现的服务端就蒙了，因为服务端不知道第一条消息从哪儿结束
 和第二条消息从哪儿开始，这种情况其实是发生了TCP粘包。
 
-![http://static.oschina.net/uploads/space/2016/0227/220649_ivTz_1759553.png](http://static.oschina.net/uploads/space/2016/0227/220649_ivTz_1759553.png)
+![https://github.com/weifansym/workDoc/blob/master/images/20181128002.png](https://github.com/weifansym/workDoc/blob/master/images/20181128002.png)
 TCP粘包示意图
 #### 第三种情况：
 服务端一共收到了两个数据包，第一个数据包只包含了第一条消息的一部分，第一条消息的后半部分和第二条消息都在第二个数据包中，或者是第一个数据包包含了第一条
 消息的完整信息和第二条消息的一部分信息，第二个数据包包含了第二条消息的剩下部分，这种情况其实是发送了TCP拆，因为发生了一条消息被拆分在两个包里面发送了，
 同样上面的服务器逻辑对于这种情况是不好处理的。
 
-![http://static.oschina.net/uploads/space/2016/0227/221054_Pifu_1759553.png](http://static.oschina.net/uploads/space/2016/0227/221054_Pifu_1759553.png)
+![https://github.com/weifansym/workDoc/blob/master/images/20181128003.png](https://github.com/weifansym/workDoc/blob/master/images/20181128003.png)
 TCP拆包示意图
 
 ### 为什么会发生TCP粘包、拆包呢？
