@@ -24,7 +24,7 @@
 
 该示例代码逻辑为：客户端连接后，就准备一次数据，然后发送给服务端，服务端收到数据后，解析完原样返回给客户端
 
-直接上代码(只贴客户端，服务端逻辑相同，自己改改)
+直接上代码：客户端 client.js
 ```
 var net = require('net');
 var _maps = require("./maps");
@@ -113,6 +113,73 @@ client.connect(PORT, HOST, function () {
     }
 });
 ```
-以上为本人开发经验，如有错误或建议，欢迎交流
+服务端 server.js
+```
+const net = require('net');
+const maps = require('./maps');
+const server = net.createServer((client) => {
+  // 'connection' listener
+  let retData = new Buffer('');
 
-转自：https://www.w3cvip.org/topics/129
+  client.on('end', () => {
+    console.log('disconnected from server');
+  });
+
+  client.on('data', (data) => {
+    // 收到消息时，处理数据
+    console.log('receive data from client');
+    retData = Buffer.concat([retData, data]);
+    getData();
+  });
+
+  function sendData(_data) {
+    const dataString = JSON.stringify(_data);
+    const dataBuffer = new Buffer(dataString);
+    let fBuffer = new Buffer(4);
+    fBuffer.writeInt32LE(dataBuffer.length, 0, 4);
+    const lastBuffer = Buffer.concat([fBuffer, dataBuffer]);
+
+    console.log('send length:', lastBuffer.length, "buffer length", dataBuffer.length, "head length:", fBuffer);
+
+    // 发送数据
+    client.write(lastBuffer, '', () => {
+      // client.destroy();
+      // 是否关闭连接
+    });
+  };
+
+  function getData() {
+    if (retData.length >= 4) {
+      // 缓存包长度大于4字节
+      const dataLength = retData.readInt32LE(0, 4);
+      // 取包头长度
+      if (retData.length - 4 >= dataLength) {
+        // 判断包完整性
+        const data = retData.toString('utf8', 4, 4 + dataLength);
+        retData = retData.slice(4 + dataLength);
+        handleData(data);
+        if (retData.length > 4) {
+          // 如果缓冲区数据可能还有包，递归处理
+          getData();
+        }
+      }
+    }
+  }
+
+  function handleData(clientData) {
+    const parseData = JSON.parse(clientData);
+    // 这里parseData就是解析后的json数据
+    console.log('from server handleData:', clientData.length, '\n cache length:', retData.length);
+    console.log('clientData: ', clientData);
+
+    sendData(maps.serverData);
+  }
+});
+
+server.on('error', (err) => {
+  throw err;
+});
+server.listen(8124, () => {
+  console.log('server bound');
+});
+```
