@@ -14,7 +14,7 @@ RabbitMQ是一个多租户系统，链接，交换机，队列，绑定，用户
 rabbitmqctl add_vhost [vhostname]
 ```
 当然也可以通过WEB管理插件来创建。 
-
+![vhost](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/vhost.png)
 如上图在创建完vhost后可以在All Virtual Host标签看到新建的VirtualHost。
 
 ## 用户权限管理
