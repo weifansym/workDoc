@@ -54,6 +54,7 @@ headers exchanges忽略routing key属性，相反用于路由的属性是从head
 
 1. 投递的标识：Delivery Tags
 2. 应答模式
+
 ![](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/rabbit1-5.png)
 ### 总图如下：
 ![](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/rabbit1-6.png)
