@@ -2,7 +2,7 @@
 ### AMQP是什么
 AMQP（Advanced Message Queuing Protocol 高级消息队列协议）是一个消息协议，它支持符合标准的客户端请求程序与符合标准的消息中间件代理进行通信。
 ### 协议结构
-![协议结构](http://javaduqing.oss-cn-hangzhou.aliyuncs.com/QiuniuTransfer/rabbit1-1.png)
+![协议结构](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/rabbit1-1.png)
 * Broker: 接收和分发消息的应用，RabbitMQ Server就是Message Broker。
 * Virtual host: 出于多租户和安全因素设计的，把AMQP的基本组件划分到一个虚拟的分组中，类似于网络中的namespace概念。当多个不同的用户使用同一个中间件提供的服务时，可以划分出多个vhost，每个用户在自己的vhost创建exchange／queue等。
 * Channel: 如果每一次访问都建立一个Connection，在消息量大的时候建立Connection的开销将是巨大的，效率也较低。Channel作为轻量级的Connection极大减少了操作系统建立connection的开销。线程池的思想。
@@ -27,12 +27,12 @@ direct exchange根据消息的routing key来传送消息。direct exchange是单
 
 * 一个routing key为K的queue与exchange进行绑定
 * 当一条新的routing key为R的消息到达direct exchange时，如果K=R,exchange 将它路由至该queue
-![direct exchange](https://www.rabbitmq.com/img/tutorials/intro/exchange-direct.png)
+![direct exchange](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/rabbit1-2.png)
 
 Fanout exchange:
 
 fanout exchange路由消息到所有的与其绑定的queue中，忽略routing key。如果N个queue被绑定到一个fanout exchange，当一条新消息被发布到exchange时，消息会被复制并且传送到这N个queue。fanout exchange是广播路由的最佳选择。
-![fanout exchange](https://www.rabbitmq.com/img/tutorials/intro/exchange-fanout.png)
+![fanout exchange](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/rabbit1-3.png)
 
 Topic exchange：
 根据routing key，通过表达式将消息分配到匹配的队列中，Topic exchange将分发到目标queue中。如， 包含分类与标签的新闻信息推送。
@@ -41,18 +41,19 @@ Headers exchange：
 headers exchanges忽略routing key属性，相反用于路由的属性是从headers属性中获取的。如果消息头的值等于指定的绑定值，则认为消息是匹配的。
 
 ### 消息发送与接受
-发送者确认：
+#### 发送者确认：
 在消息生产者与broker传递消息的过程中，由于出现种种原因，消息无法传递到broker。此时，确认消息是否正确传递就变得至关重要，AMQP支持生产者对消息的确认，可以通过两种方式：
 
 1. 事物方式
 2. confirm模式
-![](http://javaduqing.oss-cn-hangzhou.aliyuncs.com/QiuniuTransfer/rabbit1-4.png)
 
-消费者应答: 
+![](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/rabbit1-4.png)
+
+#### 消费者应答: 
 同样在broker与消费者传递消息的过程中，也有可能由于某种原因导致消息无法传递到消费者。这就会出现一个问题，什么时候讲队列中的消息删除？可以通过两种方式：
 
 1. 投递的标识：Delivery Tags
 2. 应答模式
-![](http://javaduqing.oss-cn-hangzhou.aliyuncs.com/QiuniuTransfer/rabbit1-5.png)
-总图如下：
-![](http://javaduqing.oss-cn-hangzhou.aliyuncs.com/QiuniuTransfer/rabbit1-6.png)
+![](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/rabbit1-5.png)
+### 总图如下：
+![](https://github.com/weifansym/workDoc/blob/master/images/rabbitmq/rabbit1-6.png)
