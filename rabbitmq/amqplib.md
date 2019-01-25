@@ -28,4 +28,4 @@
 #bindExchange(destination, source, pattern, [args])
 ```
 绑定一个exchange到其他的exchange，destination这个exchange会接收到source这个exchange的消息，根据source的类型以及给定的pattern。
-例如，一个direct类型的
+例如，一个direct类型的exchange将会传递消息到一个
