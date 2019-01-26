@@ -38,3 +38,21 @@
 * content：buffer类型的消息内容
 
 余下的参数在options中指定，这些参数分为对RabbitMQ有一定意义的那些以及RabbitMQ会忽略但传递给消费者的那些。这些参数都可以忽略，将会提供默认值。
+option中的参数可以是BasicDeliver（用来传递消息的方法），BasicProperties（消息header frame）,以及RabbitMQ的扩展。
+
+其中在RabbitMQ中起作用且发送给消费者的：
+* expiration：
+* userId：
+* CC
+* priority
+* persistent
+* deliveryMode
+
+在RabbitMQ中器作用且不会发送给消费者的：
+* mandatory
+* BCC
+
+不作用在RabbitMQ上，且不发送给消费者的：
+* immediate
+
+RabbitMQ会忽略的但程序中可能会用到的
