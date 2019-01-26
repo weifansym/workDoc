@@ -28,4 +28,13 @@
 #bindExchange(destination, source, pattern, [args])
 ```
 绑定一个exchange到其他的exchange，destination这个exchange会接收到source这个exchange的消息，根据source的类型以及给定的pattern。
-例如，一个direct类型的exchange将会传递消息到一个
+例如，一个direct类型的exchange将会传递消息到一个到一个路由key和pattern相同的exchange。
+### Channel#publish
+```
+#publish(exchange, routingKey, content, [options])
+```
+传递消息到exchange，必填参数如下：
+* exchange和routingKey：exchange和路由key,决定了消息的流向。一个特殊的例子是exchange为空字符串，这样消息将会直接发送到路由key对应的队列里。**equivalent**方法和这个特殊情况相同。如果指定的exchange不存在，则对应的channel将会关闭。
+* content：buffer类型的消息内容
+
+余下的参数在options中指定，这些参数分为对RabbitMQ有一定意义的那些以及RabbitMQ会忽略但传递给消费者的那些。这些参数都可以忽略，将会提供默认值。
