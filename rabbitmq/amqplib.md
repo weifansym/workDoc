@@ -95,3 +95,5 @@ RabbitMQ会忽略的但程序中可能会用到的
 
 ### Channel#ackAll
 对channel上所有已出队列的消息进行确认。这是一个安全的操作，即使在没这个消息的情况下也不会导致错误发生。
+
+### ConfirmChannel
