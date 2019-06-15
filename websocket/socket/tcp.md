@@ -7,3 +7,8 @@
 * http://www.ideawu.net/blog/archives/1027.html
 
 * https://www.cnblogs.com/kissazi2/articles/3502138.html
+
+* https://jekton.github.io/2018/06/23/socket-intro/
+
+## 网络相关
+* http://www.52im.net/forum.php?mod=collection&op=all
