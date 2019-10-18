@@ -11,3 +11,6 @@
 ## json-server
 * https://github.com/typicode/json-server
 * https://medium.com/mr-frontend-community/build-a-nodejs-mock-server-api-with-random-data-86303db9156a
+
+## 参考
+* https://www.zhihu.com/question/35436669
