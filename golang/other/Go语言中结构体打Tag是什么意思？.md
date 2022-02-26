@@ -122,7 +122,9 @@ Get内部也是调用的Lookup方法。区别在于Lookup会通过返回值告�
 本文主要介绍一下Go语言中的结构体标签是什么，以及如何使用反射获取到解结构体标签，在日常开发中我们更多的是使用一些库提供好的标签，很少自己开发使用，不过大家有兴趣的话可以读一下validae的源码，
 看看他是如何解析结构体中的tag，也可以自己动手实现一个校验库，当作练手项目。
 
-转自：https://mp.weixin.qq.com/s/3sz8oE8nGmba8WECXa0AWg
+转自：
+* https://mp.weixin.qq.com/s/3sz8oE8nGmba8WECXa0AWg
+* https://blog.csdn.net/xz_studying/article/details/106012535
 
 
 
