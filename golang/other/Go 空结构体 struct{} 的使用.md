@@ -84,3 +84,6 @@ type Door bool
 无论是 int 还是 bool 都会浪费额外的内存，因此呢，这种情况下，声明为空结构体是最合适的。
 
 转自：https://geektutu.com/post/hpg-empty-struct.html
+
+参见：https://blog.51cto.com/u_15185954/3174385
+
