@@ -5,4 +5,3 @@
 
 ## Work with BSON
 * https://www.mongodb.com/docs/drivers/go/current/fundamentals/bson/
-* 
