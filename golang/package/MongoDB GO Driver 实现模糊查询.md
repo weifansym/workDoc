@@ -62,3 +62,5 @@ filter := bson.M{
 {ID:ObjectID("600704fffc9b483f284d0bc6") Name:inkdp123}
 ```
 与命令行查找的一致，说明没有问题
+
+转自：https://www.inkdp.cn/skill/back-end/61018.html#MongoDB%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2
