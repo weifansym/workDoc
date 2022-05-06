@@ -120,4 +120,4 @@ func main() {
 }
 ```
 
-
+参考：https://yar999.gitbook.io/gopl-zh/ch1/ch1-06
