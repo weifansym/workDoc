@@ -25,6 +25,7 @@ func main() {
 }
 ```
 输出：
+
 ![image](https://user-images.githubusercontent.com/6757408/172056135-64f1820e-1dca-4956-aff3-6385ba6320c0.png)
 
 > 注：
@@ -58,9 +59,12 @@ func main() {
 	}
 }
 ```
+
 ![image](https://user-images.githubusercontent.com/6757408/172056243-84b3cb0c-1c59-47c5-b9c1-ca771263ac0e.png)
 > 注：写完之后一定要关闭（ 执行：close(ch8) ），否则会出现以下运行结果：
+
 ![image](https://user-images.githubusercontent.com/6757408/172056271-a90bfdc6-f597-4a0f-b5de-4b34dadb653f.png)
+
 #### 3）通过range方法
 ```
 for num := range ch {
@@ -86,9 +90,11 @@ func main() {
 }
 ```
 > 注：写完之后一定要关闭（ 执行：close(ch8) ），否则会出现以下运行结果：
+
 ![image](https://user-images.githubusercontent.com/6757408/172056479-37ec59d0-a253-405f-b343-e4c9203e22ac.png)
 
 > 特别说明：以上实例都是子go程写，主go程读。如在子go程中写，另一个子go程中读，不管哪种方法，都不会出现以上错误问题。（多次实例验证）
+
 ```
 var ch8 = make(chan int, 6)
 func mm1() {
@@ -116,8 +122,7 @@ func main() {
 ### 总结：
 通过以上验证，为了保证程序的健壮性，在设计程序时，最好将channel的读、写分别在子go程中进行。写完数据之后，记得关闭channel。
 
-补充一点：
-
+> 补充一点：
 channel不像文件一样需要经常去关闭，只有当你确实没有任何发送数据了，或者你想显式的结束range循环之类的，才去关闭channel；关闭channel后，无法向channel 再发送数据
 (引发 panic 错误后导致接收立即返回零值)；关闭channel后，可以继续从channel接收数据；对于nil channel，无论收发都会被阻塞。
 
