@@ -72,3 +72,16 @@ zone, _ = now.Zone()
 fmt.Printf("本地时间是 %d-%d-%d %02d:%02d:%02d %sn",
  year, mon, day, hour, min, sec, zone) // 本地时间是 2016-7-14 15:06:46 CST
 ```
+
+### 获取当前时间戳秒/毫秒/纳秒 转成字符串string
+获取当前时间戳的函数 , 默认有秒和纳秒 , 毫秒需要处理一下 , 转成字符串需要转换一下
+```
+    fmt.Printf("时间戳（秒）：%v;\n", time.Now().Unix())
+    fmt.Printf("时间戳（纳秒）：%v;\n",time.Now().UnixNano())
+    fmt.Printf("时间戳（毫秒）：%v;\n",time.Now().UnixNano() / 1e6)
+    fmt.Printf("时间戳（纳秒转换为秒）：%v;\n",time.Now().UnixNano() / 1e9)
+```
+将毫秒时间戳转换成字符串string
+```
+timestamp := strconv.FormatInt(time.Now().UnixNano()/1e6, 10)
+```
