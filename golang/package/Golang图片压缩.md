@@ -89,3 +89,9 @@ ok，这样我们就知道了，如果你追求清晰的或者文件大小该选
 
 转自：https://wxnacy.com/2019/01/15/go-nfnt-resize/
 
+
+相关包：
+1: https://github.com/esimov/caire
+2: https://github.com/disintegration/imaging
+3: https://github.com/shockerli/go-awesome
+
