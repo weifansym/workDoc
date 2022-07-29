@@ -85,3 +85,6 @@ fmt.Printf("本地时间是 %d-%d-%d %02d:%02d:%02d %sn",
 ```
 timestamp := strconv.FormatInt(time.Now().UnixNano()/1e6, 10)
 ```
+
+参考：https://www.zhangbj.com/p/652.html
+也可以看下其他相关package
