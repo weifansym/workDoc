@@ -101,4 +101,153 @@ func timestamp2Time() {
 	fmt.Println(timeObj)           // 2022-02-22 22:22:22 +0800 CST
 }
 ```
+### 时间间隔
+time.Duration是time包定义的一个类型，它代表两个时间点之间经过的时间，以纳秒为单位。
+time.Duration表示一段时间间隔，可表示的最长时间段大约290年。
+
+time 包中定义的时间间隔类型的常量如下：
+```
+const (
+    Nanosecond  Duration = 1
+    Microsecond          = 1000 * Nanosecond
+    Millisecond          = 1000 * Microsecond
+    Second               = 1000 * Millisecond
+    Minute               = 60 * Second
+    Hour                 = 60 * Minute
+)
+```
+例如：time.Duration表示1纳秒，time.Second表示1秒。
+### 时间操作
+#### Add
+Go语言的时间对象有提供Add方法如下：
+```
+func (t Time) Add(d Duration) Time
+```
+举个例子，求一个小时之后的时间：
+```
+func main() {
+	now := time.Now()
+	later := now.Add(time.Hour) // 当前时间加1小时后的时间
+	fmt.Println(later)
+}
+```
+#### Sub
+求两个时间之间的差值：
+```
+func (t Time) Sub(u Time) Duration
+```
+返回一个时间段t-u。如果结果超出了Duration可以表示的最大值/最小值，将返回最大值/最小值。要获取时间点t-d（d为Duration），可以使用t.Add(-d)。
+#### Equal
+```
+func (t Time) Equal(u Time) bool
+```
+判断两个时间是否相同，会考虑时区的影响，因此不同时区标准的时间也可以正确比较。本方法和用t==u不同，这种方法还会比较地点和时区信息。
+#### Before
+```
+func (t Time) Before(u Time) bool
+```
+如果t代表的时间点在u之前，返回真；否则返回假。
+#### After
+```
+func (t Time) After(u Time) bool
+```
+如果t代表的时间点在u之后，返回真；否则返回假。
+### 定时器
+使用time.Tick(时间间隔)来设置定时器，定时器的本质上是一个通道（channel）。
+```
+func tickDemo() {
+	ticker := time.Tick(time.Second) //定义一个1秒间隔的定时器
+	for i := range ticker {
+		fmt.Println(i)//每秒都会执行的任务
+	}
+}
+```
+### 时间格式化
+time.Format函数能够将一个时间对象格式化输出为指定布局的文本表示形式，需要注意的是 Go 语言中时间格式化的布局不是常见的Y-m-d H:M:S，而是使用 2006-01-02 15:04:05.000（记忆口诀为2006 1 2 3 4 5）。
+
+其中：
+* 2006：年（Y）
+* 01：月（m）
+* 02：日（d）
+* 15：时（H）
+* 04：分（M）
+* 05：秒（S）
+
+补充
+* 如果想格式化为12小时格式，需在格式化布局中添加PM。
+* 小数部分想保留指定位数就写0，如果想省略末尾可能的0就写 9。
+```
+// formatDemo 时间格式化
+func formatDemo() {
+	now := time.Now()
+	// 格式化的模板为 2006-01-02 15:04:05
+
+	// 24小时制
+	fmt.Println(now.Format("2006-01-02 15:04:05.000 Mon Jan"))
+	// 12小时制
+	fmt.Println(now.Format("2006-01-02 03:04:05.000 PM Mon Jan"))
+
+	// 小数点后写0，因为有3个0所以格式化输出的结果也保留3位小数
+	fmt.Println(now.Format("2006/01/02 15:04:05.000")) // 2022/02/27 00:10:42.960
+	// 小数点后写9，会省略末尾可能出现的0
+	fmt.Println(now.Format("2006/01/02 15:04:05.999")) // 2022/02/27 00:10:42.96
+
+	// 只格式化时分秒部分
+	fmt.Println(now.Format("15:04:05"))
+	// 只格式化日期部分
+	fmt.Println(now.Format("2006.01.02"))
+}
+```
+### 解析字符串格式的时间
+对于从文本的时间表示中解析出时间对象，time包中提供了time.Parse和time.ParseInLocation两个函数。
+
+其中time.Parse在解析时不需要额外指定时区信息。
+```
+// parseDemo 指定时区解析时间
+func parseDemo() {
+	// 在没有时区指示符的情况下，time.Parse 返回UTC时间
+	timeObj, err := time.Parse("2006/01/02 15:04:05", "2022/10/05 11:25:20")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(timeObj) // 2022-10-05 11:25:20 +0000 UTC
+
+	// 在有时区指示符的情况下，time.Parse 返回对应时区的时间表示
+	// RFC3339     = "2006-01-02T15:04:05Z07:00"
+	timeObj, err = time.Parse(time.RFC3339, "2022-10-05T11:25:20+08:00")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(timeObj) // 2022-10-05 11:25:20 +0800 CST
+}
+```
+time.ParseInLocation函数需要在解析时额外指定时区信息。
+```
+// parseDemo 解析时间
+func parseDemo() {
+	now := time.Now()
+	fmt.Println(now)
+	// 加载时区
+	loc, err := time.LoadLocation("Asia/Shanghai")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	// 按照指定时区和指定格式解析字符串时间
+	timeObj, err := time.ParseInLocation("2006/01/02 15:04:05", "2022/10/05 11:25:20", loc)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(timeObj)
+	fmt.Println(timeObj.Sub(now))
+}
+```
+### 练习题
+1. 获取当前时间，格式化输出为2017/06/19 20:30:05格式。
+2. 编写程序统计一段代码的执行耗时时间，单位精确到微秒。
+
+转自：https://www.liwenzhou.com/posts/Go/go-time/
 
