@@ -159,3 +159,6 @@ Facebook的工程师也提供了http和net的实现：[facebookgo](https://githu
 
 转自：[Linux Signal及Golang中的信号处理](https://colobu.com/2015/10/09/Linux-Signals/)
 
+参考：https://tonybai.com/2012/09/21/signal-handling-in-go/
+
+
