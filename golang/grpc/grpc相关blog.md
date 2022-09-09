@@ -6,3 +6,7 @@
 * https://blog.wu-boy.com/2022/08/three-grpc-testing-tool/
 * https://chai2010.cn/advanced-go-programming-book/ch4-rpc/ch4-04-grpc.html
 * 
+
+
+* https://golang2.eddycjy.com/posts/ch3/01-simple-grpc-protobuf/
+
