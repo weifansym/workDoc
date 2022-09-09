@@ -4,4 +4,5 @@
 * http://liuqh.icu/tags/RPC/
 * https://mp.weixin.qq.com/s/_zIxxIDnfiqUVGC_SshRXA
 * https://blog.wu-boy.com/2022/08/three-grpc-testing-tool/
+* https://chai2010.cn/advanced-go-programming-book/ch4-rpc/ch4-04-grpc.html
 * 
