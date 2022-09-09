@@ -145,7 +145,6 @@ grpcurl CLI 工具可以在基本没有桌面的Linux 环境中使用，所以�
 可以直接动态读取proto 资讯，将资讯转成Request Form，减少查询资料属性的时间。
 
 
-
-
+转自：https://blog.wu-boy.com/2022/08/three-grpc-testing-tool/
 
 
