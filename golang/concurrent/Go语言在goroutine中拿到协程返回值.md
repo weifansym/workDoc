@@ -120,4 +120,7 @@ func main() {
 }
 ```
 
-参考：https://yar999.gitbook.io/gopl-zh/ch1/ch1-06
+参考：
+* https://yar999.gitbook.io/gopl-zh/ch1/ch1-06
+* https://gfw.go101.org/article/channel-use-cases.html
+* 
