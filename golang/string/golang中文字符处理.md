@@ -71,3 +71,5 @@ func TestOther(t *testing.T) {
 将字符串，转为[]rune类型后，即可以对中文字符进行正确的处理，不会出现乱码。
 
 
+https://studygolang.com/articles/35334
+
