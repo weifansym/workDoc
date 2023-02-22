@@ -196,7 +196,177 @@ go tool pprof 简单的使用格式为：**go tool pprof [binary] [source]**
 * 一个是命令行交互分析模式
 * 一个是图形可视化分析模式
 
+### 命令行交互分析
+#### A：命令行交互分析
+1. 分析上面采集的数据，命令：**go tool pprof democpu.pprof**
 
+![image](https://user-images.githubusercontent.com/6757408/220511426-00c7a009-ff7a-4aae-b215-3a3eb491a194.png)
+
+| 字段  | 说明 |
+| ----- | --------- |
+| Type:  | 分析类型，这里是 cpu  |
+| Duration  | 程序执行的时长 |
+
+Duration 下面还有一行提示，这是交互模式（通过输入 help 获取帮助信息，输入 o 获取选项信息）。
+
+可以看出，go 的 pprof 操作还有很多其他命令。
+
+2. 输入 help 命令，出来很多帮助信息：
+
+![image](https://user-images.githubusercontent.com/6757408/220511859-9d1214dc-f172-427b-b715-dd47af3ae8c4.png)
+
+Commands 下有很多命令信息，text ，top 2个命令解释相同，输入这个 2 个看看：
+
+3. 输入 top，text 命令
+> top 命令：对函数的 cpu 耗时和百分比排序后输出
+
+top后面还可以带参数，比如： top15
+
+![image](https://user-images.githubusercontent.com/6757408/220512117-ae286d98-48b7-46a8-81be-4c6b5079e546.png)
+
+输出了相同的信息。
+
+| 字段  | 说明 |
+| ----- | --------- |
+| flat  | 当前函数占用 cpu 耗时  |
+| flat %  | 当前函数占用 cpu 耗时百分比 |
+| sum% | 函数占用 cpu 时间累积占比，从小到大一直累积到 100% |
+| cum | 当前函数加上调用当前函数的函数占用 cpu 的总耗时 |
+| %cum | 当前函数加上调用当前函数的函数占用 cpu 的总耗时占比 |
+
+从字段数据我们可以看出哪一个函数比较耗费时间，就可以对这个函数进一步分析。
+分析用到的命令是**list**
+> list 命令：可以列出函数最耗时的代码部分，格式：list 函数名
+
+从上面采样数据可以分析出总耗时最长的函数是**main.cycylenum**，用 **list cyclenum**命令进行分析，如下图：
+
+![image](https://user-images.githubusercontent.com/6757408/220512610-1e3bed5b-6e09-4ee7-abef-77f195abb60d.png)
+
+发现最耗时的代码是 62 行：**slice = append(slice, j)** ，这里耗时有 1.47s ，可以对这个地方进行优化。
+
+这里耗时的原因，应该是 slice 的实时扩容引起的。那我们空间换时间，固定 slice 的容量，make([]int, num * num)
+
+#### B：命令行下直接输出分析数据
+在命令行直接输出数据，基本命令格式为：
+> go tool pprof <format> [options] [binary] <source>
+	
+输入命令：**go tool pprof -text democpu.pprof** ，输出：
+	
+![image](https://user-images.githubusercontent.com/6757408/220512812-c2de37ba-f412-44e2-b223-5ea2e72379c1.png)
+
+### 可视化分析
+#### A. pprof 图形可视化
+除了上面的命令行交互分析，还可以用图形化来分析程序性能。
+图形化分析前，先要安装 graphviz 软件，
+* 下载地址：[graphviz地址](https://graphviz.org/download/)，
+下载对应的平台安装包，安装完成后，把执行文件 bin 放入 Path 环境变量中，然后在终端输入 dot -version 命令查看是否安装成功。
+
+生成可视化文件：
+
+有 2 个步骤，根据上面采集的数据文件 democpu.pprof 来进行可视化：
+1. 命令行输入：go tool pprof democpu.pprof
+2. 输入 web 命令
+在命令行里输入 web 命令，就可以生成一个 svg 格式的文件，用浏览器打开即可查看 svg 文件。
+
+执行上面 2 个命令如下图：	
+	
+![image](https://user-images.githubusercontent.com/6757408/220513119-4f1c93c2-6b8f-439e-9222-c04c4ec1f387.png)
+
+用浏览器查看生成的 svg 图：
+	
+![image](https://user-images.githubusercontent.com/6757408/220513190-87115722-0a5b-4d72-97e9-8c06132ebb86.png)
+
+(文件太大，只截取了一小部分图，完整的图请自行生成查看)
+
+关于图形的一点说明：
+* 每个框代表一个函数，理论上框越大表示占用的 cpu 资源越多
+* 每个框之间的线条代表函数之间的调用关系，线条上的数字表示函数调用的次数
+* 每个框中第一行数字表示当前函数占用 cpu 的百分比，第二行数字表示当前函数累计占用 cpu 的百分比
+
+#### B. web可视化-浏览器上查看数据
+运行命令：**go tool pprof -http=:8080 democpu.pprof**
+> $ go tool pprof -http=:8080 democpu.pprof
+> Serving web UI on http://localhost:8080
+	
+命令运行完成后，会自动在浏览器上打开地址： http://localhost:8080/ui/ 我们可以在浏览器上查看分析数据：
+	
+![image](https://user-images.githubusercontent.com/6757408/220513612-f3fbd72e-9f2a-4109-a0d3-c70849a2f698.png)
+
+这张图就是上面用 web 命令生成的图。
+> 如果不显示可能端口被占用，换个端口试试	
+> 如果你在 web 浏览时没有这么多菜单可供选择，那么请安装原生的 pprof 工具：
+> go get -u github.com/google/pprof ，然后在启动 go tool pprof -http=:8080 democpu.pprof ，就会出来菜单。
+
+还可以查看火焰图， http 地址：http://localhost:8080/ui/flamegraph，可直接点击 VIEW 菜单下的 Flame Graph 选项查看火焰图。当然还有其他选项可供选择，比如 Top，Graph 等等选项。你可以根据需要选择。
+
+![image](https://user-images.githubusercontent.com/6757408/220513887-897ab1d4-0f66-40ff-b74c-3b0f1a462a14.png)
+
+#### C. 火焰图 Flame Graph
+其实上面的 web 可视化已经包含了火焰图，把火焰图集成到了 pprof 里。但为了向性能优化专家 Bredan Gregg 致敬，还是来体会一下火焰图生成过程。
+
+火焰图 (Flame Graph) 是性能优化专家 Bredan Gregg 创建的一种性能分析图。Flame Graphs visualize profiled code。
+
+火焰图形状如下：
+
+![image](https://user-images.githubusercontent.com/6757408/220513971-545d4b9c-7713-4530-bf1e-2fb2aee1c96a.png)
+
+（来自：https://github.com/brendangregg/FlameGraph）
+
+上面用 pprof 生成的采样数据，要把它转换成火焰图，就要使用一个转换工具 go-torch，这个工具是 uber 开源，它是用 go 语言编写的，可以直接读取 pprof 采集的数据，并生成一张火焰图， svg 格式的文件。
+1. 安装 go-torch：	
+> go get -v github.com/uber/go-torch
+2. 安装 flame graph：
+> git clone https://github.com/brendangregg/FlameGraph.git
+并把 FlameGraph 安装目录位置添加进 Path 中。
+3. 安装 perl 环境：
+	
+生成火焰图的程序 FlameGraph 是用 perl 写的，所以先要安装执行 perl 语言的环境。	
+* 安装 perl 环境：https://www.perl.org/get.html
+* 把执行文件 bin 加入 Path 中
+* 在终端下执行命令：perl -h ，输出了帮助信息，则说明安装成功
+
+![image](https://user-images.githubusercontent.com/6757408/220514393-0266ff93-ec3e-4da3-9075-dc36561beb4b.png)
+
+4. 验证 FlameGraph 是否安装成功：
+进入到 FlameGraph 安装目录，执行命令，./flamegraph.pl --help
+
+![image](https://user-images.githubusercontent.com/6757408/220514462-fb0e3bdc-a963-4257-af77-6963c8ec3faa.png)
+
+输出信息说明安装成功
+
+5. 生成火焰图：
+重新进入到文件 democpu.pprof 的目录，然后执行命令：
+> go-torch -b democpu.pprof
+
+上面命令默认生成名为 torch.svg 的文件，用浏览器打开查看：
+![image](https://user-images.githubusercontent.com/6757408/220514556-4904995d-19f9-4d60-9db0-a3a0bae7e841.png)
+
+自定义输出文件名，后面加 -f 参数：
+> go-torch -b democpu.pprof -f cpu_flamegraph.svg
+	
+![image](https://user-images.githubusercontent.com/6757408/220514642-70981228-e47b-4dcb-8622-d71e539f4223.png)
+
+火焰图说明：
+> 火焰图 svg 文件，你可以点击上面的每个方块来查看分析它上面的内容。
+> 火焰图的调用顺序从下到上，每个方块代表一个函数，它上面一层表示这个函数会调用哪些函数，方块的大小代表了占用 CPU 使用时长长短。
+
+go-torch 的命令格式：
+> go-torch [options] [binary] <profile source>
+
+go-torch 帮助文档：
+> 想了解更多 go-torch 用法，请用 help 命令查看帮助文档，go-torch --help。
+> 或查看[go-torch README](https://github.com/uber-archive/go-torch/blob/master/README.md)文档 。
+	
+pprof 下一篇：
+[golang 性能优化分析工具 pprof (下) - web 服务分析](https://www.cnblogs.com/jiujuan/p/14598141.html)
+
+### 四、参考
+* [pprof](https://github.com/google/pprof/blob/main/doc/README.md)
+* [Profiling Go Programs](https://go.dev/blog/pprof)
+* [runtime/pprof](https://pkg.go.dev/runtime/pprof)
+* [net/http/pprof](https://pkg.go.dev/net/http/pprof)
+* [go-torch](https://github.com/uber-archive/go-torch)
+* [Flame Graph](https://github.com/brendangregg/FlameGraph)
+	
+	
 转自：https://www.cnblogs.com/jiujuan/p/14588185.html
-
-
