@@ -75,10 +75,11 @@ output.webm # 输出文件
 -preset：指定输出的视频质量，会影响文件的生成速度，有以下几个可用的值 ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow。 
 
 
-转自：https://it3q.com/article/59
-https://cloud.tencent.com/developer/article/1409507
-https://it3q.com/tag/39
-https://blog.csdn.net/zjun1001/article/details/107496158
-https://cloud.tencent.com/developer/article/1409537?from_column=20421&from=20421
+转自：
+1. https://it3q.com/article/59
+2. https://cloud.tencent.com/developer/article/1409507
+3. https://it3q.com/tag/39
+4. https://blog.csdn.net/zjun1001/article/details/107496158
+5. https://cloud.tencent.com/developer/article/1409537?from_column=20421&from=20421
 
-https://developer.aliyun.com/article/1365562
+6. https://developer.aliyun.com/article/1365562
