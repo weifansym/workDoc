@@ -104,3 +104,5 @@ Elasticsearch 也是使用 Java 编写的，它的内部使用 Lucene 做索引�
 -   [https://www.elastic.co/guide/cn/elasticsearch/guide/current/intro.html](https://www.elastic.co/guide/cn/elasticsearch/guide/current/intro.html)
 -   [https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html](https://www.elastic.co/guide/cn/elasticsearch/guide/current/getting-started.html)
 -   [https://www.cnblogs.com/leeSmall/p/9189078.html](https://www.cnblogs.com/leeSmall/p/9189078.html)
+
+-   转自：[01 认知：ElasticSearch基础概念](https://learn.lianglianglee.com/%e4%b8%93%e6%a0%8f/ElasticSearch%e7%9f%a5%e8%af%86%e4%bd%93%e7%b3%bb%e8%af%a6%e8%a7%a3/01%20%e8%ae%a4%e7%9f%a5%ef%bc%9aElasticSearch%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5.md)
